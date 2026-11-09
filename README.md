@@ -1,15 +1,137 @@
-# Blog API — Homework 1
+# Blog API — Homework 2
 
-Editable Django project for Practice Work #1. Python 3.12+ recommended.
+Editable Django project for Practice Works #1 and #2. Python 3.12+ recommended.
 
 ## Scope
 
-Includes the required project layout, five models, email-based custom user and manager,
-initial migrations, environment configuration, and ERD. Basic Django admin and JWT token
-endpoints are included so authentication and models can be used immediately.
-The supplied HW1 file does not define blog CRUD endpoint requirements: these are not
-implemented here. HW2 seed and Unfold features are intentionally left for the next work.
+Homework 1 foundation plus the complete Homework 2 implementation: atomic bulk seed,
+Django Unfold admin, filters, tabs, expandable rows, publication actions and dashboard.
 No GitHub repository has been published and no Oqulabs submission has been made.
+
+## Quick start (Windows)
+
+Install Python 3.12+ and double-click `start.bat` inside the extracted hw2 folder.
+It creates a virtual environment, installs dependencies, generates settings/.env with a
+random secret (without overwriting an existing file), migrates the database, and seeds
+it on the first run. Choose Y to create an administrator, then open
+http://127.0.0.1:8000/admin/. On later runs choose N if an administrator already exists.
+The server stays in the terminal; stop it with Ctrl+C.
+
+Manual alternative, in CMD from the folder containing manage.py:
+
+```bat
+py -m venv .venv
+.venv\Scripts\activate
+python -m pip install -r requirements/dev.txt
+python setup_local.py
+python manage.py migrate
+python manage.py seed
+python manage.py createsuperuser
+python manage.py runserver
+```
+
+`BLOG_REPOSITORY_URL` in settings/.env controls the GitHub menu link; set it to your
+actual repository URL. Its default is the intended Serzhan17/blog-api target, not a
+claim that this repository has been created.
+
+## Seeding
+
+```bash
+python manage.py seed
+python manage.py seed --users 50 --posts 300 --comments 1500
+python manage.py seed --clear
+python manage.py seed --help
+```
+
+| Argument | Default | Meaning |
+| --- | ---: | --- |
+| --users | 20 | New users |
+| --posts | 100 | New posts |
+| --comments | 500 | New comments |
+| --clear | off | Delete content and non-superusers before seeding |
+
+Seeded users share the LOCAL DEMO password `BlogDemo-2026!`. Email addresses are shown
+in the Users list; some users are deliberately inactive. Use createsuperuser for your
+own administrator. Seed staff have no automatically granted content permissions.
+Never use the shared seed password for production accounts.
+
+Repeated runs append users/posts/comments with unique emails and slugs. Categories and
+tags are reused. About 70% of newly created posts are published, 10% have no category,
+and comments target only published posts. Counts are rounded for small requests.
+The command is atomic: invalid counts or missing relationships roll back all changes,
+including --clear. Existing users/published posts can satisfy zero-create requests.
+
+## Admin
+
+Teal primary palette, Local/Production badge, model search (Ctrl+K), custom sidebar,
+draft badge, and All/Published/Drafts tabs are configured in settings/unfold.py.
+Users & Access is only visible to superusers. Normal Django permissions still control
+model access; hiding navigation alone does not grant or revoke permissions.
+Dashboard totals require view permissions for users, posts, comments and categories.
+
+- Categories/tags: prepopulated slugs, name search, sortable database post counts.
+- Categories: expandable posts table.
+- Comments: autocomplete filters, date range, text search, shortened body.
+- Users: name/email/initials, status labels, radio filters, tabs and custom email forms.
+- Activate/deactivate bulk actions; deactivation preserves the acting administrator.
+- Posts: status labels, tag dropdown, comment counts, related filters and expandable comments.
+- Bulk publish/draft, row publish/unpublish, publish-all-drafts, open-comments detail action.
+- Save & publish runs after the form is saved. All writes use POST with CSRF protection;
+  row/list actions show a confirmation page first.
+- Rich text editor, autocomplete, read-only dates, unsaved-change warning.
+- Comments inline in a separate tab, paginated at 10 entries.
+- Dashboard: cards, category bar chart, top authors table, publication progress.
+
+Screenshots below were captured from the running project with synthetic demo data.
+Your randomized seed data will differ.
+
+![Dashboard](docs/screenshots/dashboard.png)
+![Post list with filters](docs/screenshots/post-list.png)
+![Post edit](docs/screenshots/post-edit.png)
+![User list](docs/screenshots/user-list.png)
+
+## HW2 verification
+
+```bash
+python manage.py check
+python manage.py test
+python manage.py makemigrations --check --dry-run
+ruff check .
+ruff format --check .
+```
+
+20 tests cover HW1 plus repeated seed, hash verification, relationship constraints,
+clear/superuser preservation, invalid inputs/atomic rollback, slug collisions, every
+admin page, empty dashboard, publication permissions, CSRF, Save & publish, inline
+pagination and constant query counts for 10 versus 100 rows.
+Enable BLOG_SQL_DEBUG=True temporarily to inspect SQL queries manually.
+
+## Submit HW2 using your existing repository
+
+If HW1 is already committed and merged into main, run these commands in THAT repository
+before copying the new files from this archive into it:
+
+```bash
+git switch main
+git switch -c hw2
+```
+
+Copy the contents of this hw2 folder alongside manage.py, overwriting the old code.
+Keep your existing .git folder and settings/.env. Do not put a nested hw2 folder inside
+the repository. Reinstall requirements and run the verification commands above, then:
+
+```bash
+git add .
+git commit -m "Implement Homework 2 seed and Unfold admin"
+git switch main
+git merge --no-ff hw2 -m "Merge Homework 2"
+git push origin main hw2
+```
+
+Keep both hw1 and hw2 branches. If you have not set up Git yet, first commit the ORIGINAL
+hw1 archive on branch hw1 and merge it into main using the HW1 instructions below.
+Then create hw2 and copy this code. The archive deliberately contains no .git folder,
+secret .env, database, virtual environment or log files.
 
 ## Entity relationship diagram
 
@@ -22,7 +144,7 @@ for the admin dates section.
 
 ## Windows: start from CMD
 
-Extract the archive, open the hw1 folder in VS Code, and select a Command Prompt terminal.
+Extract the archive, open the hw2 folder in VS Code, and select a Command Prompt terminal.
 Run from the folder containing manage.py:
 
 ```bat
@@ -128,10 +250,10 @@ Local settings then import base.py, which imports conf.py and reads settings/.en
 The .env, databases, logs and virtual environments are excluded from Git and this archive.
 The logs directory is created automatically on startup.
 
-## Git and submission
+## Initial Git setup (use the original HW1 code for this step)
 
 On GitHub, create a PUBLIC repository called `blog-api` without initial files.
-Inside the extracted hw1 folder run (replace YOUR_USERNAME):
+Inside the original extracted hw1 folder run (replace YOUR_USERNAME):
 
 ```bash
 git init -b main

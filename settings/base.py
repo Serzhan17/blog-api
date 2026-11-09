@@ -1,10 +1,14 @@
 from datetime import timedelta
 
 from settings.conf import BASE_DIR, BLOG_ALLOWED_HOSTS, BLOG_SECRET_KEY
+from settings.unfold import UNFOLD  # noqa: F401
 
 SECRET_KEY = BLOG_SECRET_KEY
 ALLOWED_HOSTS = BLOG_ALLOWED_HOSTS
 INSTALLED_APPS = [
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -82,3 +86,5 @@ LOGGING = {
     },
     "loggers": {"django": {"handlers": ["console", "file"], "level": "INFO"}},
 }
+
+LOGIN_REDIRECT_URL = "/admin/"

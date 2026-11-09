@@ -1,35 +1,51 @@
-КАК ЗАПУСТИТЬ HW1 НА WINDOWS
+ГОТОВЫЙ HW2 — КАК ЗАПУСТИТЬ
 
-1. Распакуй ZIP и открой папку hw1 в VS Code.
-2. Открой Terminal -> New Terminal, выбери Command Prompt (CMD).
-3. Убедись, что в текущей папке есть manage.py.
-4. Выполни команды:
+1. Распакуй архив полностью.
+2. Открой папку hw2 и дважды нажми start.bat.
+3. Подожди установки зависимостей (нужны Python 3.12+ и интернет).
+4. При первом запуске выбери Y для создания администратора.
+5. Введи email, имя, фамилию и пароль. Пароль в терминале не отображается.
+6. Открой http://127.0.0.1:8000/admin/ и войди.
 
+При повторном запуске start.bat выбери N, если администратор уже есть.
+Тестовые данные автоматически добавляются только при первом создании SQLite-базы.
+Чтобы добавить данные позже, открой CMD в этой папке:
+
+.venv\Scripts\activate
+python manage.py seed
+
+РУЧНОЙ ЗАПУСК С НУЛЯ:
 py -m venv .venv
 .venv\Scripts\activate
 python -m pip install -r requirements/dev.txt
-copy settings\.env.example settings\.env
-python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-
-5. Скопируй полученную строку в BLOG_SECRET_KEY в settings/.env,
-   заключив значение в двойные кавычки. BLOG_ENV_ID оставь local.
-6. Выполни:
-
+python setup_local.py
 python manage.py migrate
+python manage.py seed
 python manage.py createsuperuser
 python manage.py runserver
 
-7. Открой http://127.0.0.1:8000/admin/
-   Войди с email и паролем, которые создал на шаге 6.
-   При вводе пароля в терминале символы не отображаются — это нормально.
+После настройки для обычного запуска достаточно:
+.venv\Scripts\activate
+python manage.py runserver
 
-ГДЕ РЕДАКТИРОВАТЬ КОД
-apps/auths/models.py — пользователи.
-apps/blog/models.py — категории, теги, посты, комментарии.
-apps/blog/admin.py — обычная админка.
-settings/base.py — общие настройки.
-После изменения моделей: python manage.py makemigrations, затем migrate.
+ГДЕ КОД:
+apps/blog/management/commands/seed.py — заполнение базы.
+apps/blog/admin.py — посты, категории, теги, комментарии.
+apps/auths/admin.py — пользователи и группы.
+apps/blog/callbacks.py — статистика и меню.
+settings/unfold.py — оформление Unfold.
+templates/admin/index.html — dashboard.
+docs/screenshots/ — 4 готовых скриншота.
 
-В README.md есть ER-диаграмма, описание JWT и команды GitHub.
-Репозиторий blog-api нужно создать и загрузить отдельно.
-Вторая работа (seed и Unfold) пока не добавлена.
+ПРОВЕРКА:
+python manage.py check
+python manage.py test
+ruff check .
+
+ДЛЯ СДАЧИ:
+Нужен публичный GitHub-репозиторий blog-api. Сначала сохрани оригинальный HW1
+в ветке hw1 и объедини с main. Затем создай hw2 от main, перенеси в репозиторий
+файлы из этого архива, сделай commit и merge hw2 в main. Ветки не удаляй.
+Полные команды находятся в README.md.
+В settings/.env проверь BLOG_REPOSITORY_URL — это ссылка в меню админки.
+На GitHub и в Oqulabs проект автоматически не отправлен.

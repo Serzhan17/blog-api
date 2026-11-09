@@ -1,0 +1,37 @@
+{% extends "admin/base_site.html" %}
+{% load unfold %}
+{% block content %}
+{% if dashboard_restricted %}
+<p>Select an available section in the sidebar to manage content.</p>
+{% else %}
+<div class="mb-8">
+    <p class="text-primary-600 font-semibold mb-2">EDITORIAL OVERVIEW</p>
+    <h1 class="text-3xl font-semibold text-important mb-2">Your publishing workspace</h1>
+    <p class="text-subtle">Track stories, authors and conversations in one place.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+{% for card in cards %}
+{% component "unfold/components/card.html" %}
+<div class="flex items-center justify-between mb-4"><span>{{ card.title }}</span><span class="material-symbols-outlined text-primary-600">{{ card.icon }}</span></div>
+<div class="text-3xl font-semibold text-important">{{ card.value }}</div>
+{% endcomponent %}
+{% endfor %}
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+{% component "unfold/components/card.html" with title="Posts by category" %}
+{% component "unfold/components/chart/bar.html" with data=category_chart options=chart_options height="140" %}{% endcomponent %}
+{% endcomponent %}
+{% component "unfold/components/card.html" with title="Publication status" %}
+<div class="flex flex-col gap-8">
+{% for progress in publication_progress %}
+{% component "unfold/components/progress.html" with title=progress.title value=progress.value description=progress.description %}{% endcomponent %}
+<p class="text-sm text-subtle">{{ progress.value }}% of all posts</p>
+{% endfor %}
+</div>
+{% endcomponent %}
+</div>
+{% component "unfold/components/card.html" with title="Top 5 authors" %}
+{% component "unfold/components/table.html" with table=authors_table %}{% endcomponent %}
+{% endcomponent %}
+{% endif %}
+{% endblock %}
