@@ -1,0 +1,9 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<form method="post" class="max-w-2xl p-6 border border-base-200 rounded-default dark:border-base-800">
+{% csrf_token %}
+<p class="mb-6">{{ title }}</p>
+<button type="submit" class="bg-primary-600 text-white px-4 py-2 rounded-default">Confirm</button>
+<a href="{{ back_url }}" class="ml-4">Cancel</a>
+</form>
+{% endblock %}
