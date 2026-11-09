@@ -1,0 +1,35 @@
+КАК ЗАПУСТИТЬ HW1 НА WINDOWS
+
+1. Распакуй ZIP и открой папку hw1 в VS Code.
+2. Открой Terminal -> New Terminal, выбери Command Prompt (CMD).
+3. Убедись, что в текущей папке есть manage.py.
+4. Выполни команды:
+
+py -m venv .venv
+.venv\Scripts\activate
+python -m pip install -r requirements/dev.txt
+copy settings\.env.example settings\.env
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+
+5. Скопируй полученную строку в BLOG_SECRET_KEY в settings/.env,
+   заключив значение в двойные кавычки. BLOG_ENV_ID оставь local.
+6. Выполни:
+
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+
+7. Открой http://127.0.0.1:8000/admin/
+   Войди с email и паролем, которые создал на шаге 6.
+   При вводе пароля в терминале символы не отображаются — это нормально.
+
+ГДЕ РЕДАКТИРОВАТЬ КОД
+apps/auths/models.py — пользователи.
+apps/blog/models.py — категории, теги, посты, комментарии.
+apps/blog/admin.py — обычная админка.
+settings/base.py — общие настройки.
+После изменения моделей: python manage.py makemigrations, затем migrate.
+
+В README.md есть ER-диаграмма, описание JWT и команды GitHub.
+Репозиторий blog-api нужно создать и загрузить отдельно.
+Вторая работа (seed и Unfold) пока не добавлена.

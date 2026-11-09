@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+settings/.env
+*.sqlite3
+logs/
+staticfiles/
+.ruff_cache/
+.coverage
+.idea/
+.vscode/
