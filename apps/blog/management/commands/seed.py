@@ -1,4 +1,5 @@
 import random
+from datetime import datetime, timedelta
 from time import perf_counter
 from typing import Any
 
@@ -7,6 +8,7 @@ from faker import Faker
 from django.contrib.auth.hashers import make_password
 from django.core.management.base import BaseCommand, CommandError, CommandParser
 from django.db import transaction
+from django.utils import timezone
 from django.utils.text import slugify
 
 from apps.auths.models import User
@@ -17,13 +19,17 @@ from apps.blog.constants import (
     DEFAULT_COMMENTS,
     DEFAULT_POSTS,
     DEFAULT_USERS,
+    EDITED_POST_SHARE,
     FIRST_SUFFIX,
     INACTIVE_SHARE,
     MAX_COMMENT_SENTENCES,
+    MAX_EDIT_DELAY_DAYS,
     MAX_TAGS,
     MIN_COMMENT_SENTENCES,
+    MIN_EDIT_DELAY_DAYS,
     NO_CATEGORY_SHARE,
     PUBLISHED_SHARE,
+    SEED_HISTORY_DAYS,
     SEED_PASSWORD,
     STAFF_SHARE,
     TAGS,
@@ -41,6 +47,13 @@ def unique_value(base: str, used: set[str], max_length: int) -> str:
         suffix += 1
     used.add(candidate)
     return candidate
+
+
+def random_moment(start: datetime, end: datetime) -> datetime:
+    """Choose an aware timestamp inside the inclusive interval."""
+    if start > end:
+        raise CommandError("Cannot generate a comment date: its post is dated in the future.")
+    return start + (end - start) * random.random()
 
 
 class Command(BaseCommand):
@@ -73,8 +86,15 @@ class Command(BaseCommand):
             raise CommandError("Posts/comments require users. Pass --users greater than zero.")
         category_count = self.create_taxonomy(Category, CATEGORIES)
         tag_count = self.create_taxonomy(Tag, TAGS)
-        self.create_posts(options["posts"], users)
-        published = list(Post.objects.filter(status=Post.Status.PUBLISHED))
+        now = timezone.now()
+        # Load OLD posts before creation; reuse the new objects, including their dates.
+        existing_published = (
+            list(Post.objects.filter(status=Post.Status.PUBLISHED)) if options["comments"] else []
+        )
+        new_posts = self.create_posts(options["posts"], users, now)
+        published = existing_published + [
+            post for post in new_posts if post.status == Post.Status.PUBLISHED
+        ]
         if options["comments"] and not published:
             raise CommandError("Comments require published posts. Create or publish a post first.")
         fake = Faker()
@@ -89,6 +109,9 @@ class Command(BaseCommand):
             for _ in range(options["comments"])
         ]
         Comment.objects.bulk_create(comments, batch_size=BULK_BATCH_SIZE)
+        for comment in comments:
+            comment.created_at = random_moment(comment.post.created_at, now)
+        Comment.objects.bulk_update(comments, ["created_at"], batch_size=BULK_BATCH_SIZE)
         for label, count in (
             ("Users", users_created),
             ("Categories", category_count),
@@ -138,7 +161,7 @@ class Command(BaseCommand):
         model.objects.bulk_create(objects, batch_size=BULK_BATCH_SIZE)
         return len(objects)
 
-    def create_posts(self, count: int, users: list[User]) -> None:
+    def create_posts(self, count: int, users: list[User], now: datetime) -> list[Post]:
         fake = Faker()
         used = set(Post.objects.values_list("slug", flat=True))
         slug_limit = Post._meta.get_field("slug").max_length
@@ -159,5 +182,21 @@ class Command(BaseCommand):
                 )
             )
         Post.objects.bulk_create(posts, batch_size=BULK_BATCH_SIZE)
+        edited = set(random.sample(range(count), round(count * EDITED_POST_SHARE)))
+        start = now - timedelta(days=SEED_HISTORY_DAYS)
+        for index, post in enumerate(posts):
+            # Edited posts need room for at least one full day before now.
+            latest_creation = now - timedelta(days=MIN_EDIT_DELAY_DAYS) if index in edited else now
+            post.created_at = random_moment(start, latest_creation)
+            post.updated_at = post.created_at
+            if index in edited:
+                available_days = min(MAX_EDIT_DELAY_DAYS, (now - post.created_at).days)
+                post.updated_at += timedelta(
+                    days=random.randint(MIN_EDIT_DELAY_DAYS, available_days)
+                )
+        # auto_now/auto_now_add ran in bulk_create; bulk_update preserves our dates.
+        Post.objects.bulk_update(posts, ["created_at", "updated_at"], batch_size=BULK_BATCH_SIZE)
         for post in posts:
             post.tags.set(random.sample(tags, random.randint(0, min(MAX_TAGS, len(tags)))))
+
+        return posts

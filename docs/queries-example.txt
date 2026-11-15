@@ -1,0 +1,266 @@
+#1 categories_by_name — 1 SQL query
+  Databases
+  DevOps
+  Django
+  Machine Learning
+  Python
+  (8 rows)
+#2 published_posts — 1 SQL query
+  Score here those style wish forget attack.
+  Security arm attack recent simply somebody reflect.
+  Lot pattern prevent leave have.
+  Under much improve.
+  Consider whom fine build poor open crime.
+  (70 rows)
+#3 newest_published_posts — 1 SQL query
+  Score here those style wish forget attack.
+  Security arm attack recent simply somebody reflect.
+  Lot pattern prevent leave have.
+  Under much improve.
+  Consider whom fine build poor open crime.
+  (5 rows)
+#4 post_by_slug — 1 SQL query
+  arguments: {'slug': 'score-here-those-style-wish-forget-attack'}
+  Score here those style wish forget attack.
+#5 active_users_count — 1 SQL query
+  15
+#6 has_drafts — 1 SQL query
+  True
+#7 published_posts_page — 1 SQL query
+  arguments: {'page': 1}
+  Score here those style wish forget attack.
+  Security arm attack recent simply somebody reflect.
+  Lot pattern prevent leave have.
+  Under much improve.
+  Consider whom fine build poor open crime.
+  (10 rows)
+#8 posts_with_word_in_title — 1 SQL query
+  arguments: {'word': 'Score'}
+  Score here those style wish forget attack.
+  (1 rows)
+#9 users_with_email_domain — 1 SQL query
+  arguments: {'domain': 'example.com'}
+  antoniojohnson@example.com
+  benjaminfitzgerald@example.com
+  brittneysoto@example.com
+  donnahunter@example.com
+  elizabethpatterson@example.com
+  (20 rows)
+#10 posts_without_category — 1 SQL query
+  Consider whom fine build poor open crime.
+  Painting around within quickly tree me.
+  Job into east enjoy.
+  Responsibility specific short although budget modern reason.
+  Significant find subject attack.
+  (10 rows)
+#11 categories_by_slugs — 1 SQL query
+  arguments: {'slugs': ['devops', 'databases']}
+  Databases
+  DevOps
+  (2 rows)
+#12 posts_in_month — 1 SQL query
+  arguments: {'year': 2026, 'month': 11}
+  Score here those style wish forget attack.
+  Security arm attack recent simply somebody reflect.
+  Lot pattern prevent leave have.
+  (3 rows)
+#13 posts_last_days — 1 SQL query
+  arguments: {'days': 30}
+  Score here those style wish forget attack.
+  Security arm attack recent simply somebody reflect.
+  Lot pattern prevent leave have.
+  Under much improve.
+  Consider whom fine build poor open crime.
+  (6 rows)
+#14 posts_between — 1 SQL query
+  arguments: {'start': datetime.date(2025, 11, 16), 'end': datetime.date(2026, 11, 16)}
+  Score here those style wish forget attack.
+  Security arm attack recent simply somebody reflect.
+  Lot pattern prevent leave have.
+  Under much improve.
+  Consider whom fine build poor open crime.
+  (100 rows)
+#15 author_published_posts — 1 SQL query
+  arguments: {'email': 'samuelwilliams@example.com'}
+  Score here those style wish forget attack.
+  Hospital really task if.
+  (2 rows)
+#16 posts_with_tag — 1 SQL query
+  arguments: {'tag_slug': 'automation'}
+  Under much improve.
+  Consider whom fine build poor open crime.
+  Responsibility specific short although budget modern reason.
+  Live environmental camera list executive discuss.
+  Democratic attorney fish toward continue still.
+  (18 rows)
+#17 comments_in_category — 1 SQL query
+  arguments: {'category_slug': 'devops'}
+  Comment 212 on post 92
+  Comment 376 on post 95
+  Comment 339 on post 66
+  Comment 6 on post 92
+  Comment 100 on post 92
+  (69 rows)
+#18 users_with_published_posts — 1 SQL query
+  antoniojohnson@example.com
+  benjaminfitzgerald@example.com
+  brittneysoto@example.com
+  donnahunter@example.com
+  elizabethpatterson@example.com
+  (19 rows)
+#19 posts_without_tags — 1 SQL query
+  Result arm if throughout.
+  Water war support activity during.
+  Up herself cause owner near.
+  Example church alone another work.
+  Soldier situation manage take.
+  (10 rows)
+#20 users_without_comments — 1 SQL query
+  (0 rows)
+#21 posts_with_both_tags — 1 SQL query
+  arguments: {'first_slug': 'deployment', 'second_slug': 'sqlite'}
+  Face catch network what look admit.
+  (1 rows)
+#22 search_posts — 1 SQL query
+  arguments: {'text': 'Score'}
+  Score here those style wish forget attack.
+  Lot pattern prevent leave have.
+  Or man mission health mother.
+  Significant find subject attack.
+  Food hour artist someone management.
+  (5 rows)
+#23 published_posts_missing_info — 1 SQL query
+  Consider whom fine build poor open crime.
+  Result arm if throughout.
+  Job into east enjoy.
+  Responsibility specific short although budget modern reason.
+  Up herself cause owner near.
+  (14 rows)
+#24 edited_posts — 1 SQL query
+  Painting around within quickly tree me.
+  Section child information allow itself because weight.
+  Somebody great civil employee assume knowledge.
+  May eat than six former.
+  Responsibility specific short although budget modern reason.
+  (30 rows)
+#25 comments_by_post_author — 1 SQL query
+  Comment 60 on post 32
+  Comment 477 on post 24
+  Comment 271 on post 65
+  Comment 297 on post 98
+  Comment 448 on post 41
+  (27 rows)
+#26 comments_before_post — 1 SQL query
+  (0 rows)
+#27 published_authors_emails — 1 SQL query
+  antoniojohnson@example.com
+  benjaminfitzgerald@example.com
+  brittneysoto@example.com
+  donnahunter@example.com
+  elizabethpatterson@example.com
+  (19 rows)
+#28 published_posts_overview — 1 SQL query
+  {'title': 'Score here those style wish forget attack.', 'author_email': 'samuelwilliams@example.com', 'category_name': 'DevOps'}
+  {'title': 'Security arm attack recent simply somebody reflect.', 'author_email': 'jamesriley@example.com', 'category_name': 'Databases'}
+  {'title': 'Lot pattern prevent leave have.', 'author_email': 'stevenmayer@example.com', 'category_name': 'Testing'}
+  {'title': 'Under much improve.', 'author_email': 'elizabethpatterson@example.com', 'category_name': 'Web Development'}
+  {'title': 'Consider whom fine build poor open crime.', 'author_email': 'antoniojohnson@example.com', 'category_name': 'Uncategorized'}
+  (70 rows)
+#29 posts_stats — 1 SQL query
+  {'total': 100, 'published': 70, 'drafts': 30, 'first_post_at': datetime.datetime(2025, 11, 18, 9, 5, 24, 44443, tzinfo=datetime.timezone.utc), 'last_post_at': datetime.datetime(2026, 11, 4, 23, 3, 57, 641484, tzinfo=datetime.timezone.utc)}
+#30 average_comments_per_post — 1 SQL query
+  7.14
+#31 categories_with_post_count — 1 SQL query
+  DevOps {'post_count': 20}
+  Databases {'post_count': 13}
+  Machine Learning {'post_count': 13}
+  Web Development {'post_count': 12}
+  Testing {'post_count': 11}
+  (8 rows)
+#32 categories_with_published_count — 1 SQL query
+  Databases {'published_count': 9}
+  DevOps {'published_count': 13}
+  Django {'published_count': 3}
+  Machine Learning {'published_count': 11}
+  Python {'published_count': 6}
+  (8 rows)
+#33 top_authors — 1 SQL query
+  antoniojohnson@example.com {'published_count': 7}
+  susanbenitez@example.com {'published_count': 6}
+  benjaminfitzgerald@example.com {'published_count': 5}
+  elizabethpatterson@example.com {'published_count': 5}
+  leahrivera@example.com {'published_count': 5}
+  (5 rows)
+#34 popular_tags — 1 SQL query
+  arguments: {'min_posts': 1}
+  Automation {'post_count': 18}
+  Frontend {'post_count': 17}
+  Backend {'post_count': 16}
+  JWT {'post_count': 16}
+  Python {'post_count': 16}
+  (20 rows)
+#35 posts_per_status — 1 SQL query
+  {'status': 'draft', 'count': 30}
+  {'status': 'published', 'count': 70}
+  (2 rows)
+#36 users_activity — 1 SQL query
+  antoniojohnson@example.com {'post_count': 8, 'comment_count': 24}
+  benjaminfitzgerald@example.com {'post_count': 7, 'comment_count': 28}
+  brittneysoto@example.com {'post_count': 4, 'comment_count': 30}
+  donnahunter@example.com {'post_count': 6, 'comment_count': 33}
+  elizabethpatterson@example.com {'post_count': 6, 'comment_count': 26}
+  (20 rows)
+#37 search_users_by_full_name — 1 SQL query
+  arguments: {'text': 'Samuel'}
+  samuelwilliams@example.com {'full_name': 'Samuel Williams'}
+  (1 rows)
+#38 published_posts_per_month — 1 SQL query
+  {'month': datetime.datetime(2025, 11, 1, 0, 0, tzinfo=zoneinfo.ZoneInfo(key='Asia/Almaty')), 'count': 1}
+  {'month': datetime.datetime(2025, 12, 1, 0, 0, tzinfo=zoneinfo.ZoneInfo(key='Asia/Almaty')), 'count': 8}
+  {'month': datetime.datetime(2026, 1, 1, 0, 0, tzinfo=zoneinfo.ZoneInfo(key='Asia/Almaty')), 'count': 7}
+  {'month': datetime.datetime(2026, 2, 1, 0, 0, tzinfo=zoneinfo.ZoneInfo(key='Asia/Almaty')), 'count': 7}
+  {'month': datetime.datetime(2026, 3, 1, 0, 0, tzinfo=zoneinfo.ZoneInfo(key='Asia/Almaty')), 'count': 11}
+  (13 rows)
+#39 posts_with_popularity — 1 SQL query
+  Job into east enjoy. {'comment_count': 5, 'popularity': 'normal'}
+  Item win already with. {'comment_count': 0, 'popularity': 'quiet'}
+  Significant find subject attack. {'comment_count': 0, 'popularity': 'quiet'}
+  Condition true cold own able could serve. {'comment_count': 11, 'popularity': 'hot'}
+  Consider whom fine build poor open crime. {'comment_count': 4, 'popularity': 'normal'}
+  (100 rows)
+#45 published_feed — 1 SQL query
+  Score here those style wish forget attack. | samuelwilliams@example.com | DevOps
+  Security arm attack recent simply somebody reflect. | jamesriley@example.com | Databases
+  Lot pattern prevent leave have. | stevenmayer@example.com | Testing
+  Under much improve. | elizabethpatterson@example.com | Web Development
+  Consider whom fine build poor open crime. | antoniojohnson@example.com | Uncategorized
+  (50 rows)
+#46 newest_posts_with_tags — 2 SQL queries
+  Score here those style wish forget attack.: Git
+  Security arm attack recent simply somebody reflect.: Backend, Python, SQLite, Security
+  Lot pattern prevent leave have.: Backend, Docker, Frontend, Python, REST
+  Under much improve.: Automation, Linux
+  Consider whom fine build poor open crime.: Architecture, Automation, Deployment, Docker
+  (20 rows)
+#47 categories_with_published_posts — 2 SQL queries
+  {'Databases': ['Security arm attack recent simply somebody reflect.', 'View difficult herself together plant pretty.', 'Democratic attorney fish toward continue still.', 'Soldier situation manage take.', 'Reduce action section public hold challenge city.', 'Should well black sea fish far.', 'Including soon again involve role environmental.', 'Begin any type six director teach.', 'High challenge career offer technology our good court.'], 'DevOps': ['Score here those style wish forget attack.', 'Result arm if throughout.', 'May eat than six former.', 'Ago campaign whose whom let together.', 'Two continue do under window reach.', 'Up herself cause owner near.', 'Student wear among house.', 'Action public fish less.', 'Note pass become huge which other.', 'Money necessary evening similar recent.', 'Never speech sister reduce statement they choice.', 'Clear form marriage possible plant.', 'Summer later type politics.'], 'Django': ['Data provide break charge treat voice wonder sell.', 'Minute laugh crime day.', 'Building like along shake.'], 'Machine Learning': ['Live environmental camera list executive discuss.', 'Between current able when.', 'Difference image nearly heart loss your.', 'Position close outside much plan laugh marriage.', 'Should challenge issue although.', 'Determine community water mouth indeed.', 'Open crime upon wide goal.', 'Student green cost need.', 'Top break story impact dream rock point.', 'Father suffer imagine which watch machine.', 'School political month responsibility avoid lead.'], 'Python': ['Or man mission health mother.', 'Probably teach indeed program size follow.', 'Impact member free one help.', 'Hospital really task if.', 'Include may husband something property same.', 'Argue color nature down control opportunity modern.'], 'Security': ['Example church alone another work.', 'Plan daughter fine model ask fight way church.', 'Its time from upon voice.', 'Sign full until brother picture.', 'Reduce shoulder month dark.', 'Statement skill gas several direction full use tell.', 'None north there base north.'], 'Testing': ['Lot pattern prevent leave have.', 'Adult always political.', 'Just talk tell clearly.', 'Many particularly along learn clear.', 'Industry fear our throw international could.', 'In billion begin happy almost lawyer fine.', 'Opportunity throw production find pull certainly.'], 'Web Development': ['Under much improve.', 'Listen color audience protect.', 'Significant make indicate sort physical.', 'Since movement however day.', 'Wrong kitchen more drive little base.', 'Start more leave real decision maintain coach.', 'Let watch man treat knowledge technology.', 'Less organization something.']}
+#48 posts_with_last_comment — 1 SQL query
+  Score here those style wish forget attack. {'last_comment': 'Finish after address.'}
+  Security arm attack recent simply somebody reflect. {'last_comment': 'Consumer head stuff majority fly. Bring issue young garden.'}
+  Lot pattern prevent leave have. {'last_comment': 'Run ask eat teach than say worry. Full specific decade field. Into can show interview table sometimes.'}
+  Under much improve. {'last_comment': 'Reach can sound above. Success production must. Accept clearly play so garden television.'}
+  Consider whom fine build poor open crime. {'last_comment': 'Recently be people although.'}
+  (70 rows)
+#49 posts_with_staff_comments — 1 SQL query
+  Adult always political.
+  Result arm if throughout.
+  Job into east enjoy.
+  May eat than six former.
+  Live environmental camera list executive discuss.
+  (39 rows)
+#50 users_with_draft_as_latest_post — 1 SQL query
+  donnahunter@example.com {'latest_post_status': 'draft'}
+  jonathanclark@example.com {'latest_post_status': 'draft'}
+  michaelbrock@example.com {'latest_post_status': 'draft'}
+  robertmelton@example.com {'latest_post_status': 'draft'}
+  (4 rows)

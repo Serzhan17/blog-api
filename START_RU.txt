@@ -1,51 +1,71 @@
-ГОТОВЫЙ HW2 — КАК ЗАПУСТИТЬ
+HW3 — ГОТОВЫЙ ПРОЕКТ И ШАГИ (Windows CMD)
 
-1. Распакуй архив полностью.
-2. Открой папку hw2 и дважды нажми start.bat.
-3. Подожди установки зависимостей (нужны Python 3.12+ и интернет).
-4. При первом запуске выбери Y для создания администратора.
-5. Введи email, имя, фамилию и пароль. Пароль в терминале не отображается.
-6. Открой http://127.0.0.1:8000/admin/ и войди.
+1. Распакуй архив в:
+C:\Users\bakzhan.04\OneDrive\Рабочий стол\django
+Архив уже содержит папку hw3. Проверь, что manage.py находится прямо в django\hw3,
+а не в django\hw3\hw3. Не копируй внутреннюю папку целиком внутрь репозитория.
 
-При повторном запуске start.bat выбери N, если администратор уже есть.
-Тестовые данные автоматически добавляются только при первом создании SQLite-базы.
-Чтобы добавить данные позже, открой CMD в этой папке:
+2. Открой CMD. Подготовь ветку в существующем репозитории:
+cd /d "C:\Users\bakzhan.04\OneDrive\Рабочий стол\django\blog-api-submit"
+git status --short
+Если команда показала изменения, сначала сохрани текущую работу отдельным коммитом.
+Далее:
+git switch main
+git pull --ff-only origin main
+git switch -c hw3
+Если hw3 уже существует, вместо последней команды: git switch hw3
 
-.venv\Scripts\activate
-python manage.py seed
+3. Скопируй содержимое подготовленного проекта. Точка — это текущая папка!
+robocopy "..\hw3" "." /E /XD .git .venv venv __pycache__ .ruff_cache logs /XF .env *.sqlite3 *.pyc /R:1 /W:1
+Robocopy может вернуть код 1 при успешном копировании — это нормально.
+Проверь:
+dir manage.py
 
-РУЧНОЙ ЗАПУСК С НУЛЯ:
-py -m venv .venv
+4. Подготовь окружение (Python 3.12):
+py -3.12 -m venv .venv
 .venv\Scripts\activate
 python -m pip install -r requirements/dev.txt
 python setup_local.py
 python manage.py migrate
-python manage.py seed
-python manage.py createsuperuser
-python manage.py runserver
 
-После настройки для обычного запуска достаточно:
-.venv\Scripts\activate
-python manage.py runserver
+5. Создай демонстрационные данные с правильными датами:
+python manage.py seed --clear
+ВНИМАНИЕ: --clear удаляет существующие посты, комментарии, категории, теги и обычных
+пользователей; superuser сохраняется. Если нужны прежние данные, используй seed без
+--clear, но доля 30% относится только к новым постам.
 
-ГДЕ КОД:
-apps/blog/management/commands/seed.py — заполнение базы.
-apps/blog/admin.py — посты, категории, теги, комментарии.
-apps/auths/admin.py — пользователи и группы.
-apps/blog/callbacks.py — статистика и меню.
-settings/unfold.py — оформление Unfold.
-templates/admin/index.html — dashboard.
-docs/screenshots/ — 4 готовых скриншота.
-
-ПРОВЕРКА:
-python manage.py check
+6. Запусти проверки:
+python manage.py queries
+python manage.py queries --number 31
+python manage.py queries --number 6 --sql
+python manage.py queries --number 24
+python manage.py queries --number 26
 python manage.py test
 ruff check .
+Ожидается: 30 тестов, OK. После seed --clear: #24 — 30 rows, #26 — 0 rows.
+Запросы 40–44 меняют данные, поэтому запускаются только по номеру. Например:
+python manage.py queries --number 41
+Он опубликует старые черновики. Для восстановления данных: python manage.py seed --clear
+Сервер и браузер для HW3 не нужны: результаты выводятся в терминале.
 
-ДЛЯ СДАЧИ:
-Нужен публичный GitHub-репозиторий blog-api. Сначала сохрани оригинальный HW1
-в ветке hw1 и объедини с main. Затем создай hw2 от main, перенеси в репозиторий
-файлы из этого архива, сделай commit и merge hw2 в main. Ветки не удаляй.
-Полные команды находятся в README.md.
-В settings/.env проверь BLOG_REPOSITORY_URL — это ссылка в меню админки.
-На GitHub и в Oqulabs проект автоматически не отправлен.
+7. Посмотри изменения и отправь обе ветки:
+git status --short
+git add .
+git commit -m "Complete Homework 3: ORM queries and realistic seed dates"
+git push -u origin hw3
+git switch main
+git merge hw3
+git push origin main
+Ветку hw3 НЕ удаляй. При конфликте Git остановись и разбери конфликт до push.
+
+8. Ссылка для сдачи:
+https://github.com/Serzhan17/blog-api
+Ветка с решением:
+https://github.com/Serzhan17/blog-api/tree/hw3
+Отправь ссылку в задании курса и нажми кнопку сдачи. Не загружай .venv, .env или db.sqlite3.
+
+ГЛАВНЫЙ КОД:
+apps\blog\queries.py — все 50 функций.
+apps\blog\management\commands\queries.py — команда запуска и подсчёт SQL.
+apps\blog\management\commands\seed.py — генерация дат.
+apps\blog\constants.py — константы.
